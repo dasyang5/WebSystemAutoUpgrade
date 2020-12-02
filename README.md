@@ -3,7 +3,7 @@ Web系统每次升级，总会附带执行一些脚本语句，这个工具类�
 
 ### 使用方法
 继承UpgradeExecute类，实现getPackageName()、getCurrentVersion()、compareToVersion()、log()方法。
-
+```
 public class MyUpgradeExecute extends UpgradeExecute {
     @Override
     protected String getPackageName() {
@@ -35,6 +35,7 @@ public class MyUpgradeExecute extends UpgradeExecute {
         new MyUpgradeExecute().executeAll();
     }
 }
+```
 
 ### 执行结果：
 -----------------------------------------
