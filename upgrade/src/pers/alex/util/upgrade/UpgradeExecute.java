@@ -108,7 +108,7 @@ public abstract class UpgradeExecute {
                             if (Arrays.stream(clazz.getInterfaces()).anyMatch(c -> c == UpgradeInstanse.class)) {
                                 Method method = clazz.getMethod("execute");
 
-                                boolean result = (boolean) method.invoke(clazz.newInstance());
+                                boolean result = (boolean) method.invoke(getNewInstance(clazz));
 
                                 if (result) {
                                     finalVersion = wrapper.getValue();
@@ -135,6 +135,17 @@ public abstract class UpgradeExecute {
         log("-----------------------------------------");
         log("End, final version: " + finalVersion);
         log("-----------------------------------------");
+    }
+
+    /**
+     * 根据class获取类的实例
+     * 如果需要使用spring加载bean，则要自己重写该代码
+     *
+     * @param clazz clazz
+     * @return 类对应的对象
+     */
+    protected Object getNewInstance(Class clazz) throws IllegalAccessException, InstantiationException {
+        return clazz.newInstance();
     }
 
     /**
@@ -176,4 +187,5 @@ public abstract class UpgradeExecute {
      * @param info 日志信息
      */
     protected abstract void log(String info);
+
 }
